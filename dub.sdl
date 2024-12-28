@@ -4,6 +4,8 @@ authors "deviator"
 copyright "Copyright © 2019-2020, deviator"
 license "MIT"
 
+targetType "library"
+
 dflags "-betterC" "-dip1008"
 
 configuration "default" {
