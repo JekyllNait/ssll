@@ -158,7 +158,11 @@ template funcsByUDA(alias symbol, uda)
 {
     template impl(lst...)
     {
-        static if (lst.length == 1)
+        static if (lst.length == 0)
+        {
+            alias impl = AliasSeq!();
+        }
+        else static if (lst.length == 1)
         {
             static if (is(typeof(__traits(getMember, symbol, lst[0])) == function))
             {
@@ -168,7 +172,10 @@ template funcsByUDA(alias symbol, uda)
             }
             else alias impl = AliasSeq!();
         }
-        else alias impl = AliasSeq!(impl!(lst[0..$/2]), impl!(lst[$/2..$]));
+        else
+        {
+            alias impl = AliasSeq!(impl!(lst[0..$/2]), impl!(lst[$/2..$]));
+        }
     }
 
     alias funcsByUDA = impl!(__traits(allMembers, symbol));
